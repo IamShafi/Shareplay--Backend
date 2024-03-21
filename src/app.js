@@ -31,11 +31,15 @@ app.use((err, req, res, next) => {
   });
 
 // routes imports
+import authRoutes from "./routes/auth.route.js"
+import userRoutes from "./routes/user.route.js"
+import videoRoutes from "./routes/video.route.js"
+import commentRoutes from "./routes/comment.route.js"
 
 // routes declaration
-// app.use("/api/auth", authRoutes);
-// app.use("/api/users", userRoutes);
-// app.use("/api/videos", videoRoutes);
-// app.use("/api/comments", commentRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/videos", videoRoutes);
+app.use("/api/comments", commentRoutes);
 
 export {app}

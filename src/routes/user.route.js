@@ -7,8 +7,8 @@ import {
   unsubscribe,
   like,
   dislike,
-} from "../controllers/user.js";
-import { verifyToken } from "../verifyToken.js";
+} from "../controllers/user.controller.js";
+import { verifyToken } from "../utils/verifyToken.js";
 
 const router = express.Router();
 
