@@ -41,5 +41,9 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/videos", videoRoutes);
 app.use("/api/comments", commentRoutes);
+// Route handler for root endpoint
+app.get("/api/", (req, res) => {
+  res.send("hello");
+});
 
 export {app}
