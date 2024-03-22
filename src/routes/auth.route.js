@@ -8,7 +8,7 @@ router.post("/signup", signup)
 
 //SIGN IN
 router.post("/signin", signin)
-router.post("/logout", logout)
+router.get("/logout", logout)
 
 //GOOGLE AUTH
 router.post("/google", googleAuth)
