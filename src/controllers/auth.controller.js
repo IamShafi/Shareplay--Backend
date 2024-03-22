@@ -91,7 +91,7 @@ export const signup = async (req, res, next) => {
     }
 
     const existedUser = await User.findOne({
-      $or: [{ username }, { email }]
+      $or: [{ name }, { email }]
   })
 
     if(existedUser){
