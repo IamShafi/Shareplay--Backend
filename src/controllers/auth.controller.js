@@ -39,7 +39,10 @@ export const signup = async (req, res, next) => {
     }
   };
 
-
+  export const logout = (req, res) => {
+    res.clearCookie("access_token").send("Logged out successfully");
+  };
+  
   
 export const googleAuth = async (req, res, next) => {
   try {
