@@ -128,11 +128,7 @@ export const signin = async (req, res, next) => {
   //access and referesh token
   //send cookie
   try {
-    const { email, name } = req.body;
-
-    if (!email && !name)
-      return next(createError(400, "Please provide email or username!"));
-
+ 
     const user = await User.findOne({ name: req.body.name });
     if (!user) return next(createError(404, "User not found!"));
 
