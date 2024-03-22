@@ -110,9 +110,11 @@ export const signup = async (req, res, next) => {
       return next(createError(400, "User not created!"))
     }
 
-    return res.status(201).json(createdUser, {
+    return res.status(201).json({
+      user: createdUser,
       message: "User created successfully",
     });
+    
   } catch (err) {
     next(err);
   }
