@@ -128,8 +128,10 @@ export const signin = async (req, res, next) => {
   //access and referesh token
   //send cookie
   try {
+
+    const { email, password } = req.body
  
-    const user = await User.findOne({ name: req.body.name });
+    const user = await User.findOne({ email });
     if (!user) return next(createError(404, "User not found!"));
 
     const isCorrect = await bcrypt.compare(req.body.password, user.password);
