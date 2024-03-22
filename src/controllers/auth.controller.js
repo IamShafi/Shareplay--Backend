@@ -156,48 +156,49 @@ export const signin = async (req, res, next) => {
       .status(200)
       .cookie("access_token", accessToken, options)
       .cookie("refresh_token", refreshToken, options)
-      .json(loggedInUser);
+      .json({
+        accessToken,
+        user: loggedInUser
+      });
 
-    // const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET);
-    // const { password, ...others } = user._doc;
 
-    // res
-    //   .cookie("access_token", token, {
-    //     httpOnly: true,
-    //   })
-    //   .status(200)
-    //   .json(others);
   } catch (err) {
     next(err);
   }
 };
-
 export const logout = async (req, res) => {
-  // Step 1: Find the user by their ID and update the document to unset the refreshToken field
-  // Step 2: Define options for clearing cookies
-  // Step 3: Return a response indicating successful logout
-
-  await User.findByIdAndUpdate(
-    req.user._id,
-    {
-      $unset: {
-        refreshToken: 1,
+  try {
+    // Step 1: Find the user by their ID and update the document to unset the refreshToken field
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
+      {
+        $unset: {
+          refreshToken: 1,
+        },
       },
-    },
-    { new: true }
-  );
+      { new: true } // Returns the updated user document
+    );
 
-  const options = {
-    httpOnly: true,
-    secure: true,
-  };
+    // Step 2: Define options for clearing cookies
+    const options = {
+      httpOnly: true,
+      secure: true,
+      expires: new Date(0), // Set cookie expiration to a past date to clear it
+    };
 
-  return res
-    .status(200)
-    .cookie("access_token", options)
-    .cookie("refresh_token", options)
-    .json({ message: "Logged out successfully" });
+    // Step 3: Clear cookies and return a response indicating successful logout
+    return res
+      .status(200)
+      .cookie("access_token", "", options)
+      .cookie("refresh_token", "", options)
+      .json({ message: "Logged out successfully", user: updatedUser });
+  } catch (error) {
+    // Handle any errors that occur during the logout process
+    console.error("Logout error:", error);
+    return res.status(500).json({ error: "An error occurred during logout" });
+  }
 };
+
 
 export const googleAuth = async (req, res, next) => {
   try {
