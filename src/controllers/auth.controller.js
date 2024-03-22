@@ -104,7 +104,7 @@ export const signup = async (req, res, next) => {
 
     await newUser.save();
 
-    const createdUser = await User.findById(user._id).select("-password -refreshToken");
+    const createdUser = await User.findById(newUser._id).select("-password -refreshToken");
 
     if(!createdUser){
       return next(createError(400, "User not created!"))
