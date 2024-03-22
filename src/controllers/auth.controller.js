@@ -129,7 +129,7 @@ export const signin = async (req, res, next) => {
   //send cookie
   try {
 
-    const { email, password } = req.body
+    const { email} = req.body
  
     const user = await User.findOne({ email });
     if (!user) return next(createError(404, "User not found!"));
